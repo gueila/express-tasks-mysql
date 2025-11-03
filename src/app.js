@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const taskRoutes = require("./routes/task");
 const errorHandler = require("./middleware/errorHandler");
+const setupSwagger = require("./docs/swagger");
 
 dotenv.config();
 const app = express();
@@ -13,6 +14,7 @@ app.use(helmet());
 app.use(morgan("dev"));
 app.use(errorHandler);
 app.use("/tasks", taskRoutes);
+setupSwagger(app);
 
 const PORT = process.env.PORT || 3000;
 
