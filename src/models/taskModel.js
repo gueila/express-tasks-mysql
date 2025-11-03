@@ -3,10 +3,10 @@ const db = require("../config/db");
 const getTasks = async () => {
   const conection = await db();
   try {
-    const [results] = await conection.query("SELECT * FROM tasks");    
+    const [results] = await conection.query("SELECT * FROM tasks");
     return results;
   } catch (error) {
-    console.log(error);
+    throw error;
   } finally {
     conection.end();
   }
@@ -15,11 +15,13 @@ const getTasks = async () => {
 const getTaskById = async (id) => {
   const conection = await db();
   try {
-    const [results] = await conection.query("SELECT * FROM tasks WHERE ID = ?", [
-      id,
-    ]);
+    const [results] = await conection.query(
+      "SELECT * FROM tasks WHERE ID = ?",
+      [id]
+    );
     return results;
   } catch (error) {
+    throw error;
   } finally {
     conection.end();
   }
@@ -33,7 +35,6 @@ const createTask = async (title, content) => {
     const [rows] = await conection.query(query, values);
     return rows;
   } catch (error) {
-    console.log(error);
     throw error;
   } finally {
     conection.end();

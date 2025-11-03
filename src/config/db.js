@@ -14,7 +14,7 @@ const getConnection = async () => {
       database: process.env.DB_NAME,
     });
   } catch (error) {
-    console.log("DB", error);
+    throw error;
   }
 };
 
